@@ -1,0 +1,48 @@
+1. Update and install Ansible
+sudo apt update
+sudo apt install ansible -y
+ansible --version
+
+
+2. Create the practical folder
+mkdir -p /root/ansible_pract
+cd /root/ansible_pract
+
+
+3. Create the inventory
+nano inventory
+
+
+Write:
+[local]
+localhost ansible_connection=local
+
+
+Save: Ctrl + O → Enter → Ctrl + X
+
+4. Create the playbook
+nano tree.yml
+
+
+Write:
+---
+- hosts: local
+  tasks:
+    - apt:
+        name: tree
+        state: present
+    - file:
+        path: /tmp/demo
+        state: directory
+
+
+Save: Ctrl + O → Enter → Ctrl + X
+
+5. Run the playbook
+sudo ansible-playbook -i inventory tree.yml
+
+
+6. Verify the result
+ls -ld /tmp/demo
+tree --version
+tree /tmp/demo
